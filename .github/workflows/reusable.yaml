@@ -1,33 +1,29 @@
-name: Resuable Workflow
+name: Reusable Workflow
 on:
-    workflow_call:
-        inputs:
-            name:
-                description: 'Name of the person'
-                type: string
-                required: false
-                default: 'Mohit Singh'
-        secrets:
-            access_token:
-                description: 'Secret Description'
-                required: true
+  workflow_call:
+    inputs:
+      name:
+        description: "Input description"
+        type: string
+        default: "Ali"
+        required: false
+    secrets:
+      access-token:
+        description: "Secret description"
+        required: true
 
 jobs:
-    checkout:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
-            - run: ls -al
-    log-context-and-inputs:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Display Github Context
-              run: |
-                echo "Github Context: ${{ toJson(github) }}"
-            - name: Display Inputs
-              run: |
-                    echo "Name: ${{ inputs.name }}"
-            - name: Display Secrets
-              run: |
-                    echo "Access Token: ${{ secrets.access_token }}"
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: ls -a
+  log-context-and-inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispay Github Context
+        run: echo '${{ toJSON(github) }}'
+      - name: Display name input
+        run: echo ${{ inputs.name }}
+      - name: Display access-token secret
+        run: echo ${{ secrets.access-token }}
